@@ -1,5 +1,6 @@
 import requests
 import urllib.parse
+from .errors import *
 
 
 class GolemioClient(object):
@@ -32,7 +33,12 @@ class GolemioClient(object):
 
     def _callApi(self, path, proto=False, params={}):
         response = self.session.get(self._getUrl(path, params))
-        response.raise_for_status()
+        if response.status_code == 401:
+            raise UnauthorizedError(
+                'Unauthorized: API key is invalid or missing.')
+        elif response.status_code == 404:
+            raise NotFoundError(
+                'Not Found: The requested resource was not found.')
         if proto:
             return response.content
         return response.json()
