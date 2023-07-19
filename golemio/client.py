@@ -87,7 +87,7 @@ class GolemioClient(object):
             'X-Access-Token': api_key
         })
 
-    def getServices(self, date=None, limit=10, offset=0):
+    def getGTFSServices(self, date=None, limit=10, offset=0):
         """
         Retrieve the list of services.
 
@@ -109,7 +109,17 @@ class GolemioClient(object):
             params['date'] = date
         return self._callApi(path, params=params)
 
-    def getRoute(self, route_id):
+    def getGTFSRoutes(self):
+        """
+        Get all GTFS routes.
+
+        Returns:
+            list: A list of GTFS routes.
+        """
+        path = '/gtfs/routes'
+        return self._callApi(path)
+
+    def getGTFSRoute(self, route_id):
         """
         Retrieve information about a specific route.
 
@@ -126,7 +136,7 @@ class GolemioClient(object):
         path = f'/gtfs/routes/{route_id}'
         return self._callApi(path)
 
-    def getTrips(self, stop_id=None, date=None, limit=10, offset=0):
+    def getGTFSTrips(self, stop_id=None, date=None, limit=10, offset=0):
         """
         Retrieve the list of trips.
 
@@ -151,7 +161,24 @@ class GolemioClient(object):
             params['date'] = date
         return self._callApi(path, params=params)
 
-    def getShape(self, shape_id):
+    def getGTFSTrip(self, trip_id):
+        """
+        Get GTFS trip information for a specific trip.
+
+        Args:
+            trip_id (str): The ID of the trip.
+
+        Returns:
+            dict: Information about the GTFS trip.
+
+        Raises:
+            UnauthorizedError: If the API key is invalid or missing.
+            NotFoundError: If the requested resource was not found.
+        """
+        path = f'/gtfs/trips/{trip_id}'
+        return self._callApi(path)
+
+    def getGTFSShape(self, shape_id):
         """
         Retrieve information about a specific shape.
 
@@ -168,7 +195,7 @@ class GolemioClient(object):
         path = f'/gtfs/shapes/{shape_id}'
         return self._callApi(path)
 
-    def getAllStops(self, names=None, stop_ids=None, asw_ids=None, cis_ids=None, limit=10000, offset=0):
+    def getGTFSAllStops(self, names=None, stop_ids=None, asw_ids=None, cis_ids=None, limit=10000, offset=0):
         """
         Retrieve the list of all stops.
 
@@ -198,7 +225,7 @@ class GolemioClient(object):
             params['cisIds'] = cis_ids
         return self._callApi(path, params=params)
 
-    def getStop(self, stop_id):
+    def getGTFSStop(self, stop_id):
         """
         Retrieve information about a specific stop.
 
@@ -215,7 +242,7 @@ class GolemioClient(object):
         path = f'/gtfs/stops/{stop_id}'
         return self._callApi(path)
 
-    def getStopTimes(self, stop_id, date=None, time_from=None, time_to=None, include_stop=False, limit=10000, offset=0):
+    def getGTFSStopTimes(self, stop_id, date=None, time_from=None, time_to=None, include_stop=False, limit=10000, offset=0):
         """
         Retrieve the list of stop times for a specific stop.
 
@@ -367,3 +394,55 @@ class GolemioClient(object):
         """
         path = '/pid/infotexts'
         return self._callApi(path)
+
+    def getAlertsProtobuf(self):
+        """
+        Retrieve the alerts protobuf file.
+
+        Returns:
+            bytes: The alerts protobuf file.
+
+        Raises:
+            UnauthorizedError: If the API key is invalid or missing.
+        """
+        path = '/vehiclepositions/gtfsrt/alerts.pb'
+        return self._callApi(path, proto=True)
+
+    def getPidFeedProtobuf(self):
+        """
+        Retrieve the PID feed protobuf file.
+
+        Returns:
+            bytes: The PID feed protobuf file.
+
+        Raises:
+            UnauthorizedError: If the API key is invalid or missing.
+        """
+        path = '/vehiclepositions/gtfsrt/pid_feed.pb'
+        return self._callApi(path, proto=True)
+
+    def getVehiclePositionsProtobuf(self):
+        """
+        Retrieve the vehicle positions protobuf file.
+
+        Returns:
+            bytes: The vehicle positions protobuf file.
+
+        Raises:
+            UnauthorizedError: If the API key is invalid or missing.
+        """
+        path = '/vehiclepositions/gtfsrt/vehicle_positions.pb'
+        return self._callApi(path, proto=True)
+
+    def getTripUpdatesProtobuf(self):
+        """
+        Retrieve the trip updates protobuf file.
+
+        Returns:
+            bytes: The trip updates protobuf file.
+
+        Raises:
+            UnauthorizedError: If the API key is invalid or missing.
+        """
+        path = '/vehiclepositions/gtfsrt/trip_updates.pb'
+        return self._callApi(path, proto=True)
