@@ -5,13 +5,16 @@ from .errors import *
 
 class GolemioClient(object):
 
-    def __init__(self, api_key, api_version='v2', ssl=True, debug=False):
+    def __init__(self, api_key='', api_version='v2', ssl=True, debug=False):
         self.session = requests.Session()
         self.api_key = api_key
         self.api_version = api_version
         self.base_url = 'rabin.golemio.cz' if debug else 'api.golemio.cz'
         self.protocol = 'https' if ssl else 'http'
         self.updateApiKey(api_key)
+
+    def __del__(self):
+        self.session.close()
 
     def _getUrl(self, path, params={}):
         # Current API have a bug
