@@ -1,7 +1,7 @@
 
 # Golemio Python Client
 
-[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/your_username/golemio-python-client/blob/main/LICENSE)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://github.com/0x216/Prague-Public-Transport-Golemio-API-Wrapper/blob/main/LICENSE)
 
 The Golemio Python Client is a Python wrapper for the Golemio API, providing easy access to public transportation data and GTFS (General Transit Feed Specification) information. With this client, you can retrieve data about services, routes, stops, trips, vehicle positions, departure boards, and more.
 
@@ -87,4 +87,4 @@ Contributions are welcome! If you find any issues or have suggestions for improv
 
 ## License
 
-This project is licensed under the MIT License. See the [LICENSE](https://github.com/your_username/golemio-python-client/blob/main/LICENSE) file for details.
+This project is licensed under the MIT License. See the [LICENSE](https://github.com/0x216/Prague-Public-Transport-Golemio-API-Wrapper/blob/main/LICENSE) file for details.
